@@ -1,0 +1,17 @@
+.hamburger {
+  display: none;
+}
+
+.navOptions {
+  display: block;
+}
+
+@media (max-width: 1180px) {
+  .hamburger {
+    display: block;
+  }
+
+  .navOptions {
+    display: none;
+  }
+}
