@@ -17,7 +17,11 @@ import styles from "./nav.module.scss";
 import { Divider } from "@mui/material";
 import { useRouter } from "next/router";
 
-const MERCHURL = "/merch";
+const NAVITEMCOLOR = "#f7f1a8";
+const NAVCOLORLEFT = "#020717";
+const NAVCOLORRIGHT = "#01000c";
+const SOCIALS = [{socialUrl: "/", socialIcon: <ShoppingCartIcon sx={{fill: NAVITEMCOLOR}}/>}];
+const ROUTES = [{routeName:"Merch",route:"/merch"}];
 
 export default function Nav() {
   const router = useRouter();
@@ -26,9 +30,9 @@ export default function Nav() {
     setDrawerOpen(!drawerOpen);
   };
 
-  const handleMerchClick = (e) => {
+  const handleRouteClick = (e, route) => {
     e.preventDefault();
-    router.push(MERCHURL);
+    router.push(route);
   };
 
   return (
@@ -41,7 +45,7 @@ export default function Nav() {
         }}
       >
         <Box
-          bgcolor={"#02010c"}
+          sx={{background: `linear-gradient(to right, ${NAVCOLORLEFT} , ${NAVCOLORRIGHT})`}}
           padding={"10px"}
           gap={"10px"}
           display={"flex"}
@@ -51,6 +55,7 @@ export default function Nav() {
         >
           <Link href={"/"} style={{ display: "flex", alignItems: "center" }}>
             <Image
+              priority
               src={"/images/danLogo.png"}
               width={125}
               height={75}
@@ -62,9 +67,9 @@ export default function Nav() {
               variant="fullWidth"
               style={{ marginBottom: "10px", borderColor: "#ffc2bb" }}
             ></Divider>
-            {["Merch"].map((text, index) => (
+            {ROUTES.map((routeInfo, index) => (
               <ListItem
-                key={text}
+                key={index}
                 disablePadding
                 style={{
                   display: "flex",
@@ -73,22 +78,23 @@ export default function Nav() {
                 }}
               >
                 <ListItemButton
-                  onClick={handleMerchClick}
+                  onClick={(e)=>{handleRouteClick(e, routeInfo.route)}}
                   style={{ padding: "0" }}
                 >
-                  <ListItemIcon style={{ color: "#FAFAFA" }}>
+                  <ListItemIcon style={{ color: NAVITEMCOLOR }}>
                     <ShoppingCartIcon />
                   </ListItemIcon>
-                  <ListItemText sx={{ color: "#FAFAFA" }} primary={text} />
+                  <ListItemText sx={{ color: NAVITEMCOLOR }} primary={routeInfo.routeName} />
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
         </Box>
       </Drawer>
-      <AppBar position="sticky" style={{ backgroundColor: "#02010c" }}>
+      <AppBar position="sticky" style={{ backgroundImage: `linear-gradient(to right, ${NAVCOLORLEFT} , ${NAVCOLORRIGHT})`}}>
         <Toolbar
           sx={{
+            background: `linear-gradient(to right, ${NAVCOLORLEFT} , ${NAVCOLORRIGHT})`,
             alignItems: "center",
             justifyContent: "space-between",
             padding: "10px 30px !important",
@@ -103,38 +109,35 @@ export default function Nav() {
             />
           </Link>
           <List className={styles.navOptions}>
-            {["Merch"].map((text, index) => (
-              <ListItem
-                key={text}
-                disablePadding
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
+            {SOCIALS.map((socialInfo, index) => (
+              <IconButton key={index} href={socialInfo.socialUrl}>
+                {socialInfo.socialIcon}
+              </IconButton>
+            ))}
+          </List>
+          <List className={styles.navOptions}>
+            {ROUTES.map((routeInfo, index) => (
                 <Link
+                  key={index}
                   style={{
-                    color: "#FAFAFA",
+                    color: NAVITEMCOLOR,
                     textDecoration: "none",
-                    fontSize: "20px",
+                    fontWeight: 400, fontSize: "2.125rem", lineHeight: "1.235"
                   }}
-                  href={"/merch"}
+                  href={routeInfo.route}
                 >
-                  {text}
+                  {routeInfo.routeName}
                 </Link>
-              </ListItem>
             ))}
           </List>
           <IconButton
             className={styles.hamburger}
             size="large"
             edge="start"
-            color="inherit"
             aria-label="menu"
             onClick={toggleDrawer}
           >
-            <MenuIcon />
+            <MenuIcon sx={{fill: "#FAFAFA"}}/>
           </IconButton>
         </Toolbar>
       </AppBar>

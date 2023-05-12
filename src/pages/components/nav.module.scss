@@ -4,9 +4,12 @@
 
 .navOptions {
   display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 800px) {
   .hamburger {
     display: block;
   }

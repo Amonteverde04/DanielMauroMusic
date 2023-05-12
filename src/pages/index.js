@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { Inter } from 'next/font/google';
-import styles from '@/styles/Landing.module.css';
+import Box from '@mui/material/Box';
 import Nav from './components/nav';
-
-const inter = Inter({ subsets: ['latin'] })
+import HeroLabel from './components/heroLabel';
+import MailingListForm from './components/mailingListForm';
+import styles from '../styles/Landing.module.css';
 
 export default function Landing() {
   return (
@@ -18,6 +18,14 @@ export default function Landing() {
       </Head>
       <main>
         <Nav />
+        <Box sx={{position: "relative", width: "100vw", height: "70vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden"}}>
+            <Image src={"/images/comeHomeLong.png"} alt='Come Home Album Cover Art' sizes='100% 100%' fill priority quality={100} className={styles.desktop}/>
+            <Image src={"/images/comeHome.PNG"} alt='Come Home Album Cover Art' sizes='100% 100%' fill priority quality={100} className={styles.mobile}/>
+        </Box>
+        <HeroLabel />
+        <Box sx={{position: "relative", width: "100vw", height: "70vh", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "black"}}>
+          <MailingListForm />
+        </Box>
       </main>
     </>
   )

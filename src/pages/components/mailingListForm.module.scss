@@ -1,0 +1,14 @@
+.formGrid {
+    width: 50%;
+}
+
+.formInput {
+    background-color: #f28b1a;
+    border-radius: 4px;
+}
+
+@media (max-width: 1200px) {
+    .formGrid {
+        width: 70%;
+    }
+}
