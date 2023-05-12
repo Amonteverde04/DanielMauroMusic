@@ -1,8 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import styles from './heroLabel.module.scss'
-
-const LINKCOLOR = "#f7f1a8";
+import { LINKCOLOR } from "@/lib/globals";
 
 export default function HeroLabel() {
     return (

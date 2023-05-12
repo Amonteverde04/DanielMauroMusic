@@ -16,12 +16,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import styles from "./nav.module.scss";
 import { Divider } from "@mui/material";
 import { useRouter } from "next/router";
-
-const NAVITEMCOLOR = "#f7f1a8";
-const NAVCOLORLEFT = "#020717";
-const NAVCOLORRIGHT = "#01000c";
-const SOCIALS = [{socialUrl: "/", socialIcon: <ShoppingCartIcon sx={{fill: NAVITEMCOLOR}}/>}];
-const ROUTES = [{routeName:"Merch",route:"/merch"}];
+import {NAVITEMCOLOR, MAINWHITE, NAVCOLORLEFT, NAVCOLORRIGHT, SOCIALS, ROUTES} from "../../lib/globals"
 
 export default function Nav() {
   const router = useRouter();
@@ -110,7 +105,7 @@ export default function Nav() {
           </Link>
           <List className={styles.navOptions}>
             {SOCIALS.map((socialInfo, index) => (
-              <IconButton key={index} href={socialInfo.socialUrl}>
+              <IconButton key={index} target="blank" rel="noopener noreferrer" href={socialInfo.socialUrl}>
                 {socialInfo.socialIcon}
               </IconButton>
             ))}
@@ -137,7 +132,7 @@ export default function Nav() {
             aria-label="menu"
             onClick={toggleDrawer}
           >
-            <MenuIcon sx={{fill: "#FAFAFA"}}/>
+            <MenuIcon sx={{fill: MAINWHITE}}/>
           </IconButton>
         </Toolbar>
       </AppBar>
