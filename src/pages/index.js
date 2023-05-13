@@ -5,6 +5,7 @@ import Nav from './components/nav';
 import HeroLabel from './components/heroLabel';
 import MailingListForm from './components/mailingListForm';
 import styles from '../styles/Landing.module.css';
+import SocialsSideBar from './components/socialsSideBar';
 
 export default function Landing() {
   return (
@@ -21,6 +22,7 @@ export default function Landing() {
         <Box sx={{position: "relative", width: "100vw", height: "70vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden"}}>
             <Image src={"/images/comeHomeLong.png"} alt='Come Home Album Cover Art' sizes='100% 100%' fill priority quality={100} className={styles.desktop}/>
             <Image src={"/images/comeHome.PNG"} alt='Come Home Album Cover Art' sizes='100% 100%' fill priority quality={100} className={styles.mobile}/>
+            <SocialsSideBar />
         </Box>
         <HeroLabel />
         <Box sx={{position: "relative", width: "100vw", height: "70vh", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "black"}}>

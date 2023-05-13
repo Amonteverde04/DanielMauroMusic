@@ -1,0 +1,26 @@
+.socialsSideBar {
+    display: none;
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.socialIcons {
+    display: none;
+}
+
+
+@media (max-width: 800px) {
+    .socialsSideBar {
+        display: flex;
+    }
+
+    .socialIcons {
+        display: block;
+    }
+}

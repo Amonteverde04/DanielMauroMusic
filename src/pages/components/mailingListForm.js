@@ -42,7 +42,7 @@ export default function MailingListForm() {
                     />
             </Grid>
             <Grid item xs={12} sm={6} className={styles.formGridItem}>
-                <Button size="large" fullWidth variant='contained' type='button'>Sign Up!</Button>
+                <Button size="large" fullWidth variant='contained' type='button'>Sign Up</Button>
             </Grid>
         </Grid>
     )
