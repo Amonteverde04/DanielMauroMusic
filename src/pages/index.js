@@ -19,7 +19,7 @@ export default function Landing() {
       </Head>
       <main>
         <Nav />
-        <Box sx={{position: "relative", width: "100vw", height: "70vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden"}}>
+        <Box sx={{position: "relative", width: "100vw", height: "70vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", backgroundColor: "#000000"}}>
             <Image src={"/images/comeHomeLong.png"} alt='Come Home Album Cover Art' sizes='100% 100%' fill priority quality={100} className={styles.desktop}/>
             <Image src={"/images/comeHome.PNG"} alt='Come Home Album Cover Art' sizes='100% 100%' fill priority quality={100} className={styles.mobile}/>
             <SocialsSideBar />
