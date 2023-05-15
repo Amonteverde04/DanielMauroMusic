@@ -31,7 +31,7 @@ export default function Nav() {
   };
 
   return (
-    <Box>
+    <Box sx={{background: `linear-gradient(to right, ${NAVCOLORLEFT} , ${NAVCOLORRIGHT})`}}>
       <Drawer
         anchor="top"
         open={drawerOpen}
