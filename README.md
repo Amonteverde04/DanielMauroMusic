@@ -1,2 +1,2 @@
 # DanielMauroMusic-FE
-A NextJS website for Daniel Mauro to share his brand.
+A NextJS app for Daniel Mauro to share his brand.
