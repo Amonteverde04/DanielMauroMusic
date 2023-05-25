@@ -1,36 +1,112 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from 'next/link';
-import { MAINWHITE, LINKCOLOR, NEWESTRELEASENAME, NEWESTRELEASELINK } from '@/lib/globals';
-import { Card, CardActionArea, CardContent, CardHeader, Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
+import singletonAdmin from '@/lib/admin';
+import { MAINPINK } from '@/lib/globals';
+import { Box, Button, Card, CardContent, CardHeader, Grid, Input, Stack } from '@mui/material';
+
+const adminConsole = () => {
+  return (
+    <>
+      <Grid item xs={12}>
+          <Card>
+              <CardHeader title="Featured Content" subheader="Change the featured song or album."/>
+              <CardContent>
+                <Stack spacing={"20px"}>
+                  <Input fullWidth 
+                         placeholder='Name' 
+                         name='Name'/>
+                  <Input fullWidth 
+                         placeholder='Link' 
+                         name='Link'/>
+                </Stack>
+              </CardContent>
+              <Button fullWidth 
+                      sx={{
+                        borderTopRightRadius: 0,
+                        borderTopLeftRadius: 0
+                      }}
+                      variant="contained">
+                Update Featured Content
+              </Button>
+          </Card>
+      </Grid>
+      <Grid item xs={12}>
+          <Card>
+              <CardHeader title="Download Mailing List" subheader="Get the list of users who signed up for the mailing list."/>
+              <Button fullWidth 
+                      sx={{
+                        borderTopRightRadius: 0,
+                        borderTopLeftRadius: 0
+                      }}
+                      variant="contained">
+                Download Mailing List
+              </Button>
+          </Card>
+      </Grid>
+    </>
+  );
+}
+
+const adminLogin = () => {
+  return (
+    <>
+      <Grid item xs={12}>
+          <Card>
+              <CardHeader title="Admin Log In"/>
+              <CardContent>
+                <Stack spacing={"20px"}>
+                  <Input fullWidth 
+                         placeholder='Email' 
+                         name='Email'/>
+                  <Input fullWidth 
+                         placeholder='Password' 
+                         name='Password'/>
+                </Stack>
+              </CardContent>
+              <Button fullWidth 
+                      sx={{
+                        borderTopRightRadius: 0,
+                        borderTopLeftRadius: 0
+                      }}
+                      variant="contained">
+                Log In!
+              </Button>
+          </Card>
+      </Grid>
+    </>
+  );
+}
 
 export default function Admin() {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(()=>{
+    const ValidateAdmin = () => {
+      if(!singletonAdmin || singletonAdmin.getEmail() === "" || singletonAdmin.getPassword() === "") return;
+
+      // query db... Select where email and password are singletonAdmin.get... If we query successfully, set admin to true. This will be validation for updates and etc.
+      setIsAdmin(true);
+    };
+
+    ValidateAdmin();
+  },[]);
+
   return (
     <>
       <main style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
         <Box sx={{
                 position: "relative", 
-                width: "50vw", 
+                width: "100vw", 
                 height: "100vh", 
                 display: "flex", 
                 flexDirection: "column", 
                 alignItems: "center", 
                 justifyContent: "center",
                 overflow: "hidden",
-                gap: "20px"
+                gap: "20px",
+                backgroundColor: MAINPINK
         }}>
-            <Grid container>
-                <Grid item xs={12}>
-                    <Card>
-                        <CardHeader title="Hello Title" subheader="Hello sub title"/>
-                        <CardContent>
-                            Hello Content
-                        </CardContent>
-                        <CardActionArea>
-                            Hello Action
-                        </CardActionArea>
-                    </Card>
-                </Grid>
+            <Grid container spacing={"20px"} width={"50vw"}>
+                {isAdmin ? adminConsole() : adminLogin()}
             </Grid>
         </Box>
       </main>

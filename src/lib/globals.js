@@ -1,11 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify, faApple, faInstagram, faYoutube, faAmazon, faTiktok } from '@fortawesome/free-brands-svg-icons'
 
-export const NAVITEMCOLOR = "#f7f1a8";
+export const MAINWHITE = "#FAFAFA";
+export const MAINYELLOW = "#f8f1a8";
+export const MAINBLUE = "#79beef";
+export const MAINPINK = "#ffbfb9";
+export const NAVITEMCOLOR = MAINYELLOW;
 export const NAVCOLORLEFT = "#020717";
 export const NAVCOLORRIGHT = "#01000c";
-export const MAINWHITE = "#FAFAFA";
 export const LINKCOLOR = "#f7f1a8";
+
 export const SOCIALS = [
   {socialUrl: "https://open.spotify.com/artist/0eh6TL4x6u9lcanAdWrz5Z?si=UKAGcVIgSii79AubZi59og&nd=1", socialIcon: <FontAwesomeIcon color={NAVITEMCOLOR} icon={faSpotify}/>},
   {socialUrl: "https://music.apple.com/us/artist/daniel-mauro/1573319648", socialIcon: <FontAwesomeIcon color={NAVITEMCOLOR} icon={faApple}/>},

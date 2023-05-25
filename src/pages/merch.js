@@ -30,9 +30,9 @@ export default function Merch() {
             <Typography variant='h4' color={MAINWHITE}>
                 Merch coming soon...
             </Typography>
-            <Typography variant='h3'>
+            <Typography variant='h3' textAlign={"center"}>
                 <Link href={NEWESTRELEASELINK} style={{color: LINKCOLOR}}>
-                    While you&apos;re here click me to stream {NEWESTRELEASENAME}
+                    While you&apos;re here, click me to stream {NEWESTRELEASENAME}!
                 </Link>
             </Typography>
             <Typography variant='h6'>
