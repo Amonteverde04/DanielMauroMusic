@@ -6,6 +6,9 @@ import { Box, Button, Card, CardContent, CardHeader, Grid, Input, Stack } from '
 const adminConsole = () => {
   return (
     <>
+      <Grid item xs={12} display={"flex"} justifyContent={"right"}>
+        <Button variant="contained">Sign Out</Button>
+      </Grid>
       <Grid item xs={12}>
           <Card>
               <CardHeader title="Featured Content" subheader="Change the featured song or album."/>
@@ -77,7 +80,7 @@ const adminLogin = () => {
 }
 
 export default function Admin() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
 
   useEffect(()=>{
     const ValidateAdmin = () => {
@@ -97,7 +100,7 @@ export default function Admin() {
                 position: "relative", 
                 width: "100vw", 
                 height: "100vh", 
-                display: "flex", 
+                display: "flex",
                 flexDirection: "column", 
                 alignItems: "center", 
                 justifyContent: "center",
@@ -105,7 +108,7 @@ export default function Admin() {
                 gap: "20px",
                 backgroundColor: MAINPINK
         }}>
-            <Grid container spacing={"20px"} width={"50vw"}>
+            <Grid container gap={"20px"} width={"50vw"}>
                 {isAdmin ? adminConsole() : adminLogin()}
             </Grid>
         </Box>
