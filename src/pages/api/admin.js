@@ -1,4 +1,17 @@
 import clientPromise from "@/lib/mongodb";
+import { APPURL } from "@/lib/globals";
+
+export const handleValidateUser = async (credentials) => {
+    const request = await fetch(`${APPURL}/api/admin`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials)
+    });
+
+    return await request.json();
+}
 
 const handlePost = async (body) => {
     try 
@@ -35,6 +48,6 @@ export default async function handler(req, res) {
             response === true ? res.json(response) : res.status(400).send("Invalid Credentials");
             break;
         default:
-            res.status(404);
+            res.status(404).send();
     }
 }

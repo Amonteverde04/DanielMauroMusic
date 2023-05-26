@@ -1,5 +1,5 @@
 import clientPromise from "@/lib/mongodb";
-import { APPURL } from "@/lib/globals";
+import { handleValidateUser } from "./admin";
 
 const handleGet = async () => {
     try 
@@ -26,31 +26,33 @@ const handlePost = async (body) => {
         password: body.password
     };
 
-    const request = await fetch(`${APPURL}/api/admin`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials)
-      });
-
-    if(await request.json() === true)
+    if(await handleValidateUser(credentials) === true)
     {
-        const client = await clientPromise;
-        const db = client.db("Daniel-Mauro-Music");
-        const query = {
-            name: body.featuredName,
-            link: body.featuredLink,
-            action: body.featuredAction
-        }
+        try {
+            const client = await clientPromise;
+            const db = client.db("Daniel-Mauro-Music");
+            const query = {
+                name: body.featuredName,
+                link: body.featuredLink,
+                action: body.featuredAction
+            }
 
-        const featuredContent = await db
-        .collection("featured_content").replaceOne({},query);
+            const featuredContent = await db
+            .collection("featured_content").replaceOne({},query);
 
-        if(featuredContent.modifiedCount === 1) {
-            return true;
+            if(featuredContent.modifiedCount === 1) {
+                return true;
+            }
+
+            return null;
         }
-        
+        catch(e)
+        {
+            console.error(e);
+        }
+    }
+    else 
+    {
         return null;
     }
 }
@@ -69,6 +71,6 @@ export default async function handler(req, res) {
                 res.json(postResponse) : res.status(400).send("Invalid Credentials or could not read db provider.");
             break;
         default:
-            res.status(404);
+            res.status(404).send();
     }
 }

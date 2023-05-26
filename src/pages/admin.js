@@ -58,6 +58,21 @@ const AdminConsole = (props) => {
     }
   }
 
+  const getMailingList = async () => {
+      const credentials = {
+        email: props.email,
+        password: props.password,
+      };
+
+      const request = await fetch(`${APPURL}/api/mailingList`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials)
+      });
+  }
+
   return (
     <>
       <Grid item xs={12} display={"flex"} justifyContent={"space-between"}>
@@ -113,7 +128,8 @@ const AdminConsole = (props) => {
                         borderTopRightRadius: 0,
                         borderTopLeftRadius: 0
                       }}
-                      variant="contained">
+                      variant="contained"
+                      onClick={getMailingList}>
                 Download Mailing List
               </Button>
           </Card>
