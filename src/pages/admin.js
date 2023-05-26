@@ -1,25 +1,79 @@
-import { useEffect, useState } from 'react';
-import singletonAdmin from '@/lib/admin';
-import { MAINPINK } from '@/lib/globals';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { APPURL, MAINPINK } from '@/lib/globals';
 import { Box, Button, Card, CardContent, CardHeader, Grid, Input, Stack } from '@mui/material';
 
-const adminConsole = () => {
+
+const AdminConsole = (props) => {
+  const router = useRouter();
+  const [featuredName, setFeaturedName] = useState("");
+  const [featuredLink, setFeaturedLink] = useState("");
+  const name = props.featuredContent.length  ? 
+    props.featuredContent[0].name : "Name";
+  const link = props.featuredContent.length ? 
+    props.featuredContent[0].link : "Link";
+
+  const handleFeaturedNameUpdate = (e) => {
+    e.preventDefault();
+    setFeaturedName(e.target.value);
+  }
+
+  const handleFeaturedLinkUpdate = (e) => {
+    e.preventDefault();
+    setFeaturedLink(e.target.value);
+  }
+
+  const updateFeaturedContent = async () => {
+    if(featuredName.length && featuredLink.length) {
+
+      const featuredContent = {
+        email: props.email,
+        password: props.password,
+        featuredName: featuredName,
+        featuredLink: featuredLink
+      };
+
+      const request = await fetch(`${APPURL}/api/featuredContent`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(featuredContent)
+      });
+      
+      if(await request.json() === true)
+      {
+        router.reload();
+      }
+    }
+  }
+
   return (
     <>
-      <Grid item xs={12} display={"flex"} justifyContent={"right"}>
-        <Button variant="contained">Sign Out</Button>
+      <Grid item xs={12} display={"flex"} justifyContent={"space-between"}>
+        <Button variant="contained"
+                onClick={()=>{router.push("/")}}>
+          Home
+        </Button>
+        <Button variant="contained"
+                onClick={router.reload}>
+          Log Out
+        </Button>
       </Grid>
       <Grid item xs={12}>
           <Card>
-              <CardHeader title="Featured Content" subheader="Change the featured song or album."/>
+              <CardHeader title="Featured Content" 
+                          subheader="Change the featured song or album."/>
               <CardContent>
                 <Stack spacing={"20px"}>
                   <Input fullWidth 
-                         placeholder='Name' 
-                         name='Name'/>
+                         placeholder={name} 
+                         name='Name'
+                         onChange={(e)=>{handleFeaturedNameUpdate(e)}}/>
                   <Input fullWidth 
-                         placeholder='Link' 
-                         name='Link'/>
+                         placeholder={link} 
+                         name='Link'
+                         onChange={(e)=>{handleFeaturedLinkUpdate(e)}}/>
                 </Stack>
               </CardContent>
               <Button fullWidth 
@@ -27,7 +81,8 @@ const adminConsole = () => {
                         borderTopRightRadius: 0,
                         borderTopLeftRadius: 0
                       }}
-                      variant="contained">
+                      variant="contained"
+                      onClick={updateFeaturedContent}>
                 Update Featured Content
               </Button>
           </Card>
@@ -49,9 +104,27 @@ const adminConsole = () => {
   );
 }
 
-const adminLogin = () => {
+const AdminLogin = (props) => {
+  const router = useRouter();
+
+  const handleEmailUpdate = (e) => {
+    e.preventDefault();
+    props.setEmail(e.target.value);
+  }
+  
+  const handlePasswordUpdate = (e) => {
+    e.preventDefault();
+    props.setPassword(e.target.value);
+  }
+
   return (
     <>
+      <Grid item xs={12} display={"flex"} justifyContent={"left"}>
+        <Button variant="contained"
+                onClick={()=>{router.push("/")}}>
+          Home
+        </Button>
+      </Grid>
       <Grid item xs={12}>
           <Card>
               <CardHeader title="Admin Log In"/>
@@ -59,10 +132,12 @@ const adminLogin = () => {
                 <Stack spacing={"20px"}>
                   <Input fullWidth 
                          placeholder='Email' 
-                         name='Email'/>
+                         name='Email'
+                         onChange={(e)=>{handleEmailUpdate(e)}}/>
                   <Input fullWidth 
                          placeholder='Password' 
-                         name='Password'/>
+                         name='Password'
+                         onChange={(e)=>{handlePasswordUpdate(e)}}/>
                 </Stack>
               </CardContent>
               <Button fullWidth 
@@ -70,7 +145,9 @@ const adminLogin = () => {
                         borderTopRightRadius: 0,
                         borderTopLeftRadius: 0
                       }}
-                      variant="contained">
+                      variant="contained"
+                      type="submit"
+                      onClick={props.logIn}>
                 Log In!
               </Button>
           </Card>
@@ -79,19 +156,33 @@ const adminLogin = () => {
   );
 }
 
-export default function Admin() {
-  const [isAdmin, setIsAdmin] = useState(true);
+export default function Admin({ featuredContent }) {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  useEffect(()=>{
-    const ValidateAdmin = () => {
-      if(!singletonAdmin || singletonAdmin.getEmail() === "" || singletonAdmin.getPassword() === "") return;
+  const logIn = async () => {
+    if(email.length && password.length) {
 
-      // query db... Select where email and password are singletonAdmin.get... If we query successfully, set admin to true. This will be validation for updates and etc.
-      setIsAdmin(true);
-    };
+      const credentials = {
+        email: email,
+        password: password
+      };
 
-    ValidateAdmin();
-  },[]);
+      const request = await fetch(`${APPURL}/api/admin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials)
+      });
+      
+      if(await request.json() === true)
+      {
+        setIsAdmin(true);
+      }
+    }
+  }
 
   return (
     <>
@@ -109,10 +200,26 @@ export default function Admin() {
                 backgroundColor: MAINPINK
         }}>
             <Grid container gap={"20px"} width={"50vw"}>
-                {isAdmin ? adminConsole() : adminLogin()}
+                {
+                isAdmin ? 
+                  <AdminConsole featuredContent={featuredContent}
+                                email={email} 
+                                password={password}/> 
+                : 
+                  <AdminLogin setIsAdmin={setIsAdmin}
+                              setEmail={setEmail}
+                              setPassword={setPassword}
+                              logIn={logIn}/>
+                }
             </Grid>
         </Box>
       </main>
     </>
   )
 }
+
+export const getServerSideProps = async () => {
+  const request = await fetch(`${APPURL}/api/featuredContent`);
+  const featuredContent = await request.json();
+  return { props: { featuredContent } };
+};

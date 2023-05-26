@@ -2,16 +2,20 @@ import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import styles from './heroLabel.module.scss'
 import { LINKCOLOR } from "@/lib/globals";
-import { NEWESTRELEASENAME, NEWESTRELEASELINK } from '@/lib/globals';
 
-export default function HeroLabel() {
+export default function HeroLabel(props) {
+    const name = props.featuredContent.length  ? 
+        props.featuredContent[0].name : "Name";
+    const link = props.featuredContent.length ? 
+        props.featuredContent[0].link : "Link";
+
     return (
-        <Box sx={{width: "100vw",display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", backgroundColor: "#000000", textAlign: "center", gap:"10px", padding:"30px"}}>
+        <Box sx={{width: "100vw", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", backgroundColor: "#000000", textAlign: "center", gap:"20px", padding: "40px 0"}}>
             <Typography className={styles.albumAnnouncement} color={LINKCOLOR}>
                 Album available October 20th
             </Typography>
-            <Link href={NEWESTRELEASELINK} className={styles.streamLink} style={{color: LINKCOLOR}}>
-                Stream {NEWESTRELEASENAME} Here
+            <Link href={link} target="blank" className={styles.streamLink} style={{color: LINKCOLOR}}>
+                Stream {name} Here
             </Link>
         </Box>
     );

@@ -6,8 +6,10 @@ import HeroLabel from './components/heroLabel';
 import MailingListForm from './components/mailingListForm';
 import styles from '../styles/Landing.module.css';
 import SocialsSideBar from './components/socialsSideBar';
+import { APPURL } from '@/lib/globals';
+import { Grid } from '@mui/material';
 
-export default function Landing() {
+export default function Landing({ featuredContent }) {
   return (
     <>
       <Head>
@@ -18,17 +20,28 @@ export default function Landing() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <SocialsSideBar />
         <Nav />
-        <Box sx={{position: "relative", width: "100vw", height: "70vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", backgroundColor: "#000000"}}>
+        <Box className={styles.imageContainer}>
             <Image src={"/images/comeHomeLong.png"} alt='Come Home Album Cover Art' sizes='100% 100%' fill priority quality={100} className={styles.desktop}/>
             <Image src={"/images/comeHome.PNG"} alt='Come Home Album Cover Art' sizes='100% 100%' fill priority quality={100} className={styles.mobile}/>
-            <SocialsSideBar />
         </Box>
-        <HeroLabel />
-        <Box sx={{position: "relative", width: "100vw", height: "70vh", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "black"}}>
-          <MailingListForm />
-        </Box>
+        <Grid container>
+          <Grid item xs={12}>
+            <HeroLabel featuredContent={featuredContent} />
+          </Grid>
+          <Grid item xs={12}>
+              <MailingListForm />
+          </Grid>
+        </Grid>
+
       </main>
     </>
   )
 }
+
+export const getServerSideProps = async () => {
+  const request = await fetch(`${APPURL}/api/featuredContent`);
+  const featuredContent = await request.json();
+  return { props: { featuredContent } };
+};

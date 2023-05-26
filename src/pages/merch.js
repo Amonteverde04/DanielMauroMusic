@@ -2,9 +2,14 @@ import Head from 'next/head';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
-import { MAINWHITE, LINKCOLOR, NEWESTRELEASENAME, NEWESTRELEASELINK } from '@/lib/globals';
+import { APPURL, MAINWHITE, LINKCOLOR, NEWESTRELEASENAME, NEWESTRELEASELINK } from '@/lib/globals';
 
-export default function Merch() {
+export default function Merch(props) {
+  const name = props.featuredContent.length  ? 
+    props.featuredContent[0].name : "Name";
+  const link = props.featuredContent.length ? 
+    props.featuredContent[0].link : "Link";
+
   return (
     <>
       <Head>
@@ -27,12 +32,25 @@ export default function Merch() {
                 overflow: "hidden",
                 gap: "20px"
         }}>
+          <Box sx={{
+                background:"#000000", 
+                position: "relative", 
+                width: "70vw", 
+                height: "100vh", 
+                display: "flex", 
+                flexDirection: "column", 
+                alignItems: "center", 
+                justifyContent: "center",
+                overflow: "hidden",
+                textAlign: "center",
+                gap: "20px"
+          }}>
             <Typography variant='h4' color={MAINWHITE}>
                 Merch coming soon...
             </Typography>
-            <Typography variant='h3' textAlign={"center"}>
-                <Link href={NEWESTRELEASELINK} style={{color: LINKCOLOR}}>
-                    While you&apos;re here, click me to stream {NEWESTRELEASENAME}!
+            <Typography variant='h4'>
+                <Link href={link} target='blank' style={{color: LINKCOLOR}}>
+                    While you&apos;re here, click me to stream {name}!
                 </Link>
             </Typography>
             <Typography variant='h6'>
@@ -40,8 +58,16 @@ export default function Merch() {
                     Or click me to go back...
                 </Link>
             </Typography>
+          </Box>
         </Box>
       </main>
     </>
   )
 }
+
+export const getServerSideProps = async () => {
+  const request = await fetch(`${APPURL}/api/featuredContent`);
+  const featuredContent = await request.json();
+  console.log(featuredContent);
+  return { props: { featuredContent } };
+};
