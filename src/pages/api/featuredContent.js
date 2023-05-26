@@ -40,7 +40,8 @@ const handlePost = async (body) => {
         const db = client.db("Daniel-Mauro-Music");
         const query = {
             name: body.featuredName,
-            link: body.featuredLink
+            link: body.featuredLink,
+            action: body.featuredAction
         }
 
         const featuredContent = await db
@@ -71,4 +72,3 @@ export default async function handler(req, res) {
             res.status(404);
     }
 }
-  

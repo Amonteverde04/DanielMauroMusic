@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { APPURL, MAINPINK } from '@/lib/globals';
-import { Box, Button, Card, CardContent, CardHeader, Grid, Input, Stack } from '@mui/material';
-
+import { Box, Button, Card, CardContent, CardHeader, Grid, Input, Stack, RadioGroup, Radio, FormControlLabel } from '@mui/material';
 
 const AdminConsole = (props) => {
   const router = useRouter();
-  const [featuredName, setFeaturedName] = useState("");
-  const [featuredLink, setFeaturedLink] = useState("");
+
   const name = props.featuredContent.length  ? 
     props.featuredContent[0].name : "Name";
   const link = props.featuredContent.length ? 
     props.featuredContent[0].link : "Link";
+  const action = props.featuredContent.length ? 
+    props.featuredContent[0].action : "Pre-Save";
+
+  const [featuredName, setFeaturedName] = useState("");
+  const [featuredLink, setFeaturedLink] = useState("");
+  const [featuredAction, setFeaturedAction] = useState(action);
 
   const handleFeaturedNameUpdate = (e) => {
     e.preventDefault();
@@ -23,6 +27,11 @@ const AdminConsole = (props) => {
     setFeaturedLink(e.target.value);
   }
 
+  const handleFeaturedActionUpdate = (e) => {
+    e.preventDefault();
+    setFeaturedAction(e.target.value);
+  }
+
   const updateFeaturedContent = async () => {
     if(featuredName.length && featuredLink.length) {
 
@@ -30,7 +39,8 @@ const AdminConsole = (props) => {
         email: props.email,
         password: props.password,
         featuredName: featuredName,
-        featuredLink: featuredLink
+        featuredLink: featuredLink,
+        featuredAction: featuredAction
       };
 
       const request = await fetch(`${APPURL}/api/featuredContent`, {
@@ -74,6 +84,14 @@ const AdminConsole = (props) => {
                          placeholder={link} 
                          name='Link'
                          onChange={(e)=>{handleFeaturedLinkUpdate(e)}}/>
+                  <RadioGroup
+                    defaultValue={action}
+                    name="action"
+                    onChange={(e)=>{handleFeaturedActionUpdate(e)}}
+                  >
+                    <FormControlLabel value="Pre-Save" control={<Radio />} label="Pre-Save" />
+                    <FormControlLabel value="Stream" control={<Radio />} label="Stream" />
+                  </RadioGroup>
                 </Stack>
               </CardContent>
               <Button fullWidth 
