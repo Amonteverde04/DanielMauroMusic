@@ -148,7 +148,7 @@ export default async function handler(req, res) {
             const postResponse = await handlePost(postBody);
             if(postResponse)
             {
-                res.setHeader("Content-Type", "text/plain");
+                res.setHeader("Content-Type", "text/csv");
                 return res.send(postResponse);
             } 
             res.status(400).send("Invalid credentials or could not reach db provider.");

@@ -70,10 +70,16 @@ const AdminConsole = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(credentials)
-      }).then( res => res.blob() ).then( blob => {
-        var file = window.URL.createObjectURL(blob);
-        window.location.assign(file);
-      });
+      })
+      .then(response => response.blob())
+      .then(blob => {
+        var fileURL = URL.createObjectURL(blob);
+        var fileLink = document.createElement('a');
+        fileLink.href = fileURL;
+        fileLink.download = "mailing_list";
+        fileLink.click();
+        fileLink.remove();
+      }).catch();
   }
 
   return (
@@ -174,6 +180,7 @@ const AdminLogin = (props) => {
                   <Input fullWidth 
                          placeholder='Password' 
                          name='Password'
+                         type='password'
                          onChange={(e)=>{handlePasswordUpdate(e)}}/>
                 </Stack>
               </CardContent>
