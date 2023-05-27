@@ -45,7 +45,7 @@ export default async function handler(req, res) {
         case "POST":
             const body = req.body;
             const response = await handlePost(body);
-            response === true ? res.json(response) : res.status(400).send("Invalid Credentials");
+            response === true ? res.json(response) : res.status(400).send("Invalid credentials");
             break;
         default:
             res.status(404).send();

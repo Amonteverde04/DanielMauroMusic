@@ -35,7 +35,7 @@ const handlePost = async (body) => {
                 name: body.featuredName,
                 link: body.featuredLink,
                 action: body.featuredAction
-            }
+            };
 
             const featuredContent = await db
             .collection("featured_content").replaceOne({},query);
@@ -68,7 +68,7 @@ export default async function handler(req, res) {
             const body = req.body;
             const postResponse = await handlePost(body);
             postResponse === true ? 
-                res.json(postResponse) : res.status(400).send("Invalid Credentials or could not reach db provider.");
+                res.json(postResponse) : res.status(400).send("Invalid credentials or could not reach db provider.");
             break;
         default:
             res.status(404).send();
