@@ -1,21 +1,21 @@
 .hamburger {
-  display: none;
+  display: none !important;
 }
 
 .navOptions {
-  display: block;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
+  display: block !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 20px !important;
 }
 
 @media (max-width: 820px) {
   .hamburger {
-    display: block;
+    display: block !important;
   }
 
   .navOptions {
-    display: none;
+    display: none !important;
   }
 }
