@@ -13,7 +13,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import styles from "@/styles/nav.module.scss";
+import styles from "@/styles/nav.module.css";
 import { Divider } from "@mui/material";
 import { useRouter } from "next/router";
 import {NAVITEMCOLOR, MAINWHITE, NAVCOLORLEFT, NAVCOLORRIGHT, SOCIALS, ROUTES} from "../src/lib/globals"

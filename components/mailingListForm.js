@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { mailingListSchema } from "@/lib/schemas/mailingListSchema";
 import { APPURL } from "@/lib/globals";
 import { Grid, Typography, Box, Button, TextField, Alert, Snackbar } from '@mui/material';
-import styles from '@/styles/mailingListForm.module.scss';
+import styles from '@/styles/mailingListForm.module.css';
 
 export default function MailingListForm() {
     const [submissionResponseMessage, setsubmissionResponseMessage] = useState("");
