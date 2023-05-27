@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { mailingListSchema } from "@/lib/schemas/mailingListSchema";
 import { APPURL } from "@/lib/globals";
 import { Grid, Typography, Box, Button, TextField, Alert, Snackbar } from '@mui/material';
-import styles from './mailingListForm.module.scss';
+import styles from '@/styles/mailingListForm.module.scss';
 
 export default function MailingListForm() {
     const [submissionResponseMessage, setsubmissionResponseMessage] = useState("");
@@ -99,7 +99,7 @@ export default function MailingListForm() {
                             error={errors?.firstName?.message != null}
                             helperText={errors?.firstName?.message?.toString()}
                             className={styles.formInput}
-                            color="primary"
+                            color="info"
                             fullWidth
                             required
                             label="First Name"
@@ -113,7 +113,7 @@ export default function MailingListForm() {
                             error={errors?.lastName?.message != null}
                             helperText={errors?.lastName?.message?.toString()}
                             className={styles.formInput}
-                            color="primary"
+                            color="info"
                             fullWidth
                             required
                             label="Last Name"
@@ -127,7 +127,7 @@ export default function MailingListForm() {
                             error={errors?.email?.message != null}
                             helperText={errors?.email?.message?.toString()}
                             className={styles.formInput}
-                            color="primary"
+                            color="info"
                             fullWidth
                             required
                             label="Email"

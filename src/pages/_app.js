@@ -1,4 +1,4 @@
-import './globals.css'
+import '@/styles/globals.css'
 import theme from '@/styles/theme';
 import { ThemeProvider } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';
