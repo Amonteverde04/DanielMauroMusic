@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Nav from '../../components/nav';
 import HeroLabel from '../../components/heroLabel';
 import MailingListForm from '../../components/mailingListForm';
-import styles from '../styles/index.module.css';
+import styles from './index.module.css';
 import SocialsSideBar from '../../components/socialsSideBar';
 import { APPURL } from '@/lib/globals';
 import { Grid } from '@mui/material';

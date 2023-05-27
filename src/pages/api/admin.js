@@ -25,7 +25,7 @@ const handlePost = async (body) => {
 
         const featuredContent = await db
         .collection("Admin")
-        .find(query)
+        .findOne(query)
         .toArray();
 
         if(featuredContent.length) {
