@@ -1,5 +1,5 @@
 import { List, IconButton } from "@mui/material";
-import { SOCIALS } from "../../lib/globals";
+import { SOCIALS } from "../src/lib/globals";
 import styles from "./socialsSideBar.module.scss";
 
 export default function SocialsSideBar() {

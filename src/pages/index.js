@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
-import Nav from './components/nav';
-import HeroLabel from './components/heroLabel';
-import MailingListForm from './components/mailingListForm';
+import Nav from '../../components/nav';
+import HeroLabel from '../../components/heroLabel';
+import MailingListForm from '../../components/mailingListForm';
 import styles from '../styles/Landing.module.css';
-import SocialsSideBar from './components/socialsSideBar';
+import SocialsSideBar from '../../components/socialsSideBar';
 import { APPURL } from '@/lib/globals';
 import { Grid } from '@mui/material';
 

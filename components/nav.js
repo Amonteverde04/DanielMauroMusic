@@ -16,7 +16,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import styles from "./nav.module.scss";
 import { Divider } from "@mui/material";
 import { useRouter } from "next/router";
-import {NAVITEMCOLOR, MAINWHITE, NAVCOLORLEFT, NAVCOLORRIGHT, SOCIALS, ROUTES} from "../../lib/globals"
+import {NAVITEMCOLOR, MAINWHITE, NAVCOLORLEFT, NAVCOLORRIGHT, SOCIALS, ROUTES} from "../src/lib/globals"
 
 export default function Nav() {
   const router = useRouter();
