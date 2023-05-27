@@ -70,6 +70,9 @@ const AdminConsole = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(credentials)
+      }).then( res => res.blob() ).then( blob => {
+        var file = window.URL.createObjectURL(blob);
+        window.location.assign(file);
       });
   }
 

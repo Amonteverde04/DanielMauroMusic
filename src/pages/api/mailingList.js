@@ -1,6 +1,14 @@
 import clientPromise from "@/lib/mongodb";
+import fs from 'fs';
+import { readFile } from "fs/promises";
+import path from "path";
 import { handleValidateUser } from "./admin";
 import { mailingListSchema } from "@/lib/schemas/mailingListSchema";
+
+function getHostUrl(host = "localhost:3000") {
+    const protocol = host.includes("localhost") ? "http://" : "https://";
+    return `${protocol}${host}`;
+  }
 
 const handleValidateMailingData = async (userMailingInfo) => {
     try 
@@ -63,8 +71,30 @@ const handlePost = async (body) => {
             .find({})
             .toArray();
 
-            // TODO: return mailing list data as csv.
-            return mailingList;
+            // Turn array to string formatted like a csv and encode it. 
+            // Removes the id. Dan doesn't need it.
+            const csvString = [
+                [
+                  "First Name",
+                  "Last Name",
+                  "Email Address"
+                ],
+                ...mailingList.map(item => [
+                  item.firstName,
+                  item.lastName,
+                  item.email
+                ].map(str => `"${str.replace(/"/g, '\"')}"`))
+            ]
+            .map(e => e.join(",")) 
+            .join("\n");
+
+            // write
+            fs.writeFileSync('./tmp/mailingList.txt', csvString)
+            // serving data from a file https://vercel.com/guides/loading-static-file-nextjs-api-route
+            const filePath = path.join(process.cwd(), "tmp") + "/mailingList.txt";
+            const fileContents = (await readFile(filePath, "utf8"));
+
+            return fileContents;
         }
         catch(e)
         {
@@ -116,8 +146,12 @@ export default async function handler(req, res) {
         case "POST":
             const postBody = req.body;
             const postResponse = await handlePost(postBody);
-            postResponse ? 
-                res.json(postResponse) : res.status(400).send("Invalid credentials or could not reach db provider.");
+            if(postResponse)
+            {
+                res.setHeader("Content-Type", "text/plain");
+                return res.send(postResponse);
+            } 
+            res.status(400).send("Invalid credentials or could not reach db provider.");
             break;
         case "PATCH":
             const updateBody = req.body;
