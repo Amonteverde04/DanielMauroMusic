@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify, faApple, faInstagram, faYoutube, faAmazon, faTiktok } from '@fortawesome/free-brands-svg-icons'
 
 export const APPURL = process.env.NODE_ENV === "development" ?
-"http://localhost:3000" : "http://localhost:3000";
+"http://localhost:3000" : "https://daniel-mauro-music-fe.vercel.app";
 
 export const MAINWHITE = "#FAFAFA";
 export const MAINYELLOW = "#f8f1a8";
