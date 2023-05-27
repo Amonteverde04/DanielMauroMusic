@@ -1,14 +1,20 @@
-.formGrid {
-    width: 50%;
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
 }
 
 .formInput {
-    background-color: #f28b1a;
+    background-color: #FAFAFA;
     border-radius: 4px;
 }
 
 @media (max-width: 820px) {
-    .formGrid {
+    .form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 70%;
     }
 }
