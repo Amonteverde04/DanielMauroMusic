@@ -1,25 +1,25 @@
 .albumAnnouncement {
-    font-weight: 400; 
-    font-size: 3rem; 
-    line-height: "1.167";
+    font-weight: 400 !important;
+    font-size: 3rem !important; 
+    line-height: "1.167" !important;
 }
 
 .streamLink {
-    font-weight: 400; 
-    font-size: 2.125rem; 
-    line-height: "1.235";
+    font-weight: 400 !important; 
+    font-size: 2.125rem !important; 
+    line-height: "1.235" !important;
 }
 
 @media (max-width: 820px) {
     .albumAnnouncement {
-        font-weight: 400; 
-        font-size: 2rem; 
-        line-height: "1.167";
+        font-weight: 400 !important; 
+        font-size: 2rem !important; 
+        line-height: "1.167" !important;
     }
     
     .streamLink {
-        font-weight: 400; 
-        font-size: 1.525rem; 
-        line-height: "1.235";
+        font-weight: 400 !important; 
+        font-size: 1.525rem !important; 
+        line-height: "1.235" !important;
     }
 }
