@@ -89,8 +89,7 @@ const handlePost = async (body) => {
             .join("\n");
 
             // write
-            fs.writeFileSync('./tmp/mailingList.txt', csvString)
-            // serving data from a file https://vercel.com/guides/loading-static-file-nextjs-api-route
+            fs.writeFileSync('/tmp/mailingList.txt', csvString)
             const filePath = path.join(process.cwd(), "tmp") + "/mailingList.txt";
             const fileContents = (await readFile(filePath, "utf8"));
 
