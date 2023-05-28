@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import { Analytics } from '@vercel/analytics/react';
 import theme from '@/styles/theme';
 import { ThemeProvider } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,6 +17,7 @@ export default function App({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Component {...pageProps} />
+        <Analytics />
       </ThemeProvider>
     </>
   )
