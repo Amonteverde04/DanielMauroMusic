@@ -156,7 +156,7 @@ export default async function handler(req, res) {
                 });
 
                 res.setHeader("Content-Type", "text/csv");
-                return res.status(200).json({message: "Success"});
+                return res.status(200).send(readStream);
             } 
             res.status(400).send("Invalid credentials or could not reach db provider.");
             break;
