@@ -88,13 +88,7 @@ const handlePost = async (body) => {
             .map(e => e.join(",")) 
             .join("\n");
 
-            let fileContent;
-            fs.writeFileSync(`./mailingList.txt`, csvString);
-            const readStream = fs.createReadStream("/tmp/mailingList.txt")
-            readStream.on('open', function () {
-                readStream.pipe(fileContent)
-                return fileContent;
-            });
+            return csvString;
         }
         catch(e)
         {
@@ -146,10 +140,23 @@ export default async function handler(req, res) {
         case "POST":
             const postBody = req.body;
             const postResponse = await handlePost(postBody);
-            if(postResponse)
+            if(postResponse.length)
             {
+                // create or overwrite file
+                fs.writeFileSync(`/tmp/mailingList.txt`, postResponse);
+                // Read file
+                const readStream = fs.createReadStream("/tmp/mailingList.txt")
+                // Serve file
+                readStream.on('open', function () {
+                    readStream.pipe(res)
+                });
+
+                readStream.on('error', function (e) {
+                    res.end(e);
+                });
+
                 res.setHeader("Content-Type", "text/csv");
-                return res.send(postResponse);
+                return res.status(200).json({message: "Success"});
             } 
             res.status(400).send("Invalid credentials or could not reach db provider.");
             break;
