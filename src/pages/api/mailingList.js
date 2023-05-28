@@ -88,12 +88,15 @@ const handlePost = async (body) => {
             .map(e => e.join(",")) 
             .join("\n");
 
-            // write
-            fs.writeFileSync('/tmp/mailingList.txt', csvString)
-            const filePath = path.join(process.cwd(), "tmp") + "/mailingList.txt";
-            const fileContents = (await readFile(filePath, "utf8"));
-
-            return fileContents;
+            let writeStream = fs.createWriteStream(`/tmp/mailingList.txt`);
+            writeStream.on('finish', function () {
+                //once the doc stream is completed, read the file from the tmp folder
+                const filePath = path.join(process.cwd(), "tmp") + "/mailingList.txt";
+                const fileContent = fs.readFileSync(filePath, {
+                    encoding: "utf-8"
+                });
+                return fileContent;
+            });
         }
         catch(e)
         {
