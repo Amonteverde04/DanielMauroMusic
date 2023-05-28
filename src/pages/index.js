@@ -24,7 +24,7 @@ export default function Landing({ featuredContent }) {
         <Nav />
         <Box className={styles.imageContainer}>
             <Image src={"/images/comeHomeLong.png"} loading="lazy" alt='Come Home Album Cover Art' sizes='100% 100%' fill quality={100} className={styles.desktop}/>
-            <Image src={"/images/comeHome.PNG"} loading="lazy" alt='Come Home Album Cover Art' sizes='100% 100%' fill quality={100} className={styles.mobile}/>
+            <Image src={"/images/comeHome.PNG"} loading="eager" alt='Come Home Album Cover Art' sizes='100% 100%' fill quality={100} className={styles.mobile}/>
         </Box>
         <Grid container>
           <Grid item xs={12}>
