@@ -17,6 +17,7 @@ export default function Landing({ featuredContent }) {
         <meta name="description" 
               content="The official Daniel Mauro website with all the latest news, shows, media and more. Sign up to our newsletter to hear about music and news." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="google-site-verification" content="6SnrUmEPha4t99zYn8wEt1_U_URu45qNlYWWDgXmFME" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
