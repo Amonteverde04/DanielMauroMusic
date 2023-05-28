@@ -147,14 +147,6 @@ export default async function handler(req, res) {
                 // Read file
                 const readStream = fs.createReadStream("/tmp/mailingList.txt")
                 // Serve file
-                readStream.on('open', function () {
-                    readStream.pipe(res)
-                });
-
-                readStream.on('error', function (e) {
-                    res.end(e);
-                });
-
                 res.setHeader("Content-Type", "text/csv");
                 return res.status(200).send(readStream);
             } 
