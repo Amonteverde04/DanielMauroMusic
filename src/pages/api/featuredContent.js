@@ -1,5 +1,25 @@
+import Cors from 'cors';
 import clientPromise from "@/lib/mongodb";
 import { handleValidateUser } from "./admin";
+
+// Initializing the cors middleware
+const cors = Cors({
+    methods: ['GET', 'HEAD'],
+});
+
+// Helper method to wait for a middleware to execute before continuing
+// And to throw an error when an error happens in a middleware
+function runMiddleware(req, res, fn) {
+    return new Promise((resolve, reject) => {
+      fn(req, res, (result) => {
+        if (result instanceof Error) {
+          return reject(result)
+        }
+  
+        return resolve(result)
+      })
+    })
+}
 
 const handleGet = async () => {
     try 
@@ -58,6 +78,9 @@ const handlePost = async (body) => {
 }
 
 export default async function handler(req, res) {
+    // Run the middleware
+    await runMiddleware(req, res, cors);
+
     switch(req.method) {
         case "GET":
             const getResponse = await handleGet();

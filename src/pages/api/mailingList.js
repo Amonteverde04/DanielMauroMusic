@@ -1,14 +1,27 @@
+import Cors from 'cors';
 import clientPromise from "@/lib/mongodb";
 import fs from 'fs';
-import { readFile } from "fs/promises";
-import path from "path";
 import { handleValidateUser } from "./admin";
 import { mailingListSchema } from "@/lib/schemas/mailingListSchema";
 
-function getHostUrl(host = "localhost:3000") {
-    const protocol = host.includes("localhost") ? "http://" : "https://";
-    return `${protocol}${host}`;
-  }
+// Initializing the cors middleware
+const cors = Cors({
+    methods: ['GET', 'HEAD'],
+});
+
+// Helper method to wait for a middleware to execute before continuing
+// And to throw an error when an error happens in a middleware
+function runMiddleware(req, res, fn) {
+    return new Promise((resolve, reject) => {
+      fn(req, res, (result) => {
+        if (result instanceof Error) {
+          return reject(result)
+        }
+  
+        return resolve(result)
+      })
+    })
+}
 
 const handleValidateMailingData = async (userMailingInfo) => {
     try 
@@ -136,6 +149,9 @@ const handlePatch = async (body) => {
 }
 
 export default async function handler(req, res) {
+    // Run the middleware
+    await runMiddleware(req, res, cors);
+
     switch(req.method) {
         case "POST":
             const postBody = req.body;
