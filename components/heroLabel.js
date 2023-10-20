@@ -14,7 +14,7 @@ export default function HeroLabel(props) {
     return (
         <Box sx={{width: "100vw", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", backgroundColor: "#000000", textAlign: "center", gap:"20px", padding: "40px 0"}}>
             <Typography className={styles.albumAnnouncement} color={LINKCOLOR}>
-                Album available October 20th
+                Album available now!
             </Typography>
             <Link href={link} target="blank" className={styles.streamLink} style={{color: LINKCOLOR}}>
                 {action} {name} Here
